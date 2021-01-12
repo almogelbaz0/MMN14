@@ -1,7 +1,7 @@
 import murmurhash
 import mmh3
 
-def hashThem(input,m,k):
+def hash_them(input,m,k):
     results = []
     i = 0
     while i < k :
@@ -10,7 +10,8 @@ def hashThem(input,m,k):
         i+=1
     return results
 
-def createHashTable(array,m,k):
+def create_hash_table(array,m,k):
+    #O(n)
     T=[0] * m
     for input in array:
         hashedResults = hashThem(input,m,k)
@@ -19,6 +20,7 @@ def createHashTable(array,m,k):
     return T
 
 def create_array_from_file(file):
+    #O(n)
     result = []
     for line in file.readlines():
         for word in line.split(","):
