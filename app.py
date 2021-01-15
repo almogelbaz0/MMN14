@@ -1,5 +1,5 @@
-import murmurhash
 import mmh3
+
 
 def hash_them(input,m,k):
     results = []
@@ -10,23 +10,24 @@ def hash_them(input,m,k):
         i+=1
     return results
 
+
 def create_hash_table(array,m,k):
-    #O(n)
     T=[0] * m
     for input in array:
-        hashedResults = hashThem(input,m,k)
+        hashedResults = hash_them(input,m,k)
         for i in hashedResults:
             T[i]=1
     return T
 
+
 def create_array_from_file(file):
-    #O(n)
     result = []
     for line in file.readlines():
         for word in line.split(","):
             result.append(word)
     return result
-    
+
+
 def get_m_k_from_user():
     f = 0
     while f == 0:
@@ -47,7 +48,7 @@ def get_m_k_from_user():
         try:
             print("Enter File Path To Build Stracture: ")
             stract = open(input(),"r")
-            # stract = open("./Examples/Example1.txt","r")
+            # stract = open("C:/Users/Almog/Documents/Git/MMN14/venv/MMN14/Examples/Example2.txt","r")
             f =3
         except:
             print("File Was Not Found Try Again")
@@ -55,32 +56,35 @@ def get_m_k_from_user():
         try:
             print("Enter File Path To Check If In Stracture: ")
             file = open(input(),"r")
-            # file = open("./Examples/Checks.txt","r")
+            # file = open("C:/Users/Almog/Documents/Git/MMN14/venv/MMN14/Examples/Check2.txt","r")
             f =4
         except:
             print("File Was Not Found Try Again")
-    return m , k ,stract,file
+    return m, k, stract, file
+
 
 # check if a word is in the stract ( len(indexs)== k)
 def check_if_cell_is_taken(array,indexs):
-    #O(n)
     for i in indexs :
         if array[i] == 0 :
             return False
     return True
 
 
-m,k,stract,file= get_m_k_from_user()
-print(" ")
-print(" ")
-stractArray = create_array_from_file(stract)
-hashedTable = createHashTable(stractArray,m,k)
-checkArray = create_array_from_file(file)
-for word in checkArray :
-    indexs = hashThem(word, m, k)
-    print("[{},{}]".format(word,check_if_cell_is_taken(hashedTable,indexs)),end=" ")
-print(" ")
-print(" ")
-input("press any key to EXIT !")
-
-
+if __name__ == "__main__" :
+    m, k, stract, file = get_m_k_from_user()
+    print(" ")
+    print(" ")
+    stractArray = create_array_from_file(stract)
+    hashedTable = create_hash_table(stractArray,m,k)
+    checkArray = create_array_from_file(file)
+    f = open("./Result","w")
+    for word in checkArray :
+        indexAraay = hash_them(word, m, k)
+        printThis="[{},{}]".format(word,check_if_cell_is_taken(hashedTable,indexAraay))
+        f.write(printThis)
+        print(printThis,end=" ")
+    f.close()
+    print(" ")
+    print(" ")
+    input("press any key to EXIT !")
